@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گل‌فروشی دیان</title>
+  <meta name="description" content="گل‌فروشی دیان، بهترین مقصد برای خرید گل‌های آپارتمانی، فضای سبز، گلدان‌های لوکس و بذرهای باکیفیت با تخفیف‌های ویژه.">
+  <meta name="keywords" content="گل‌فروشی، دیان، گل آپارتمانی، گلدان لوکس، بذر، تخفیفات گل">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazir:wght@400;700&family=Playfair+Display:wght@700;900&display=swap');
+    body {
+      font-family: 'Vazir', sans-serif;
+      background: linear-gradient(135deg, #ecfdf5, #ffffff);
+      overflow-x: hidden;
+      position: relative;
+      margin: 0;
+    }
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(8px);
+      opacity: 0.4;
+      z-index: -3;
+    }
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #10b981, #34d399, #6ee7b7, #10b981);
+      background-size: 800%;
+      animation: gradientBG 25s ease infinite;
+      z-index: -2;
+      opacity: 0.5;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .header {
+      background: linear-gradient(135deg, rgba(6, 95, 70, 0.85), rgba(52, 211, 153, 0.85));
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: waveHeader 10s ease infinite;
+    }
+    @keyframes waveHeader {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .logo {
+      animation: logoSpin 3s ease-in-out;
+      transition: transform 0.5s, filter 0.5s;
+    }
+    .logo:hover {
+      transform: rotateY(360deg) scale(1.2);
+      filter: drop-shadow(0 0 20px rgba(250, 204, 21, 0.8));
+    }
+    @keyframes logoSpin {
+      0% { transform: rotateY(0deg) scale(0.5); opacity: 0; }
+      50% { transform: rotateY(180deg) scale(1.3); opacity: 0.7; }
+      100% { transform: rotateY(360deg) scale(1); opacity: 1; }
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -8px;
+      right: 0;
+      background: linear-gradient(45deg, #facc15, #fef08a);
+      transition: width 0.4s, box-shadow 0.4s;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+      box-shadow: 0 0 15px rgba(250, 204, 21, 0.8);
+    }
+    .category-card {
+      transition: transform 0.6s, box-shadow 0.6s;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(25px);
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+    .category-card:hover::before {
+      left: 100%;
+    }
+    .category-card:hover {
+      transform: translateY(-25px) rotateX(15deg) rotateY(10deg);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    }
+    .product-card {
+      transition: transform 0.5s, box-shadow 0.5s;
+      background: rgba(255, 255, 255, 0.95);
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: scale(1.1) rotateX(8deg);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+    .modal {
+      animation: slideIn 0.7s ease-out;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-80px) scale(0.8); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .bg-gradient-welcome {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1466781783364-36c955e42a7b?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+    .glow-button {
+      background: linear-gradient(45deg, #facc15, #fef08a);
+      box-shadow: 0 0 30px rgba(250, 204, 21, 0.8);
+      transition: box-shadow 0.4s, transform 0.4s;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .glow-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+    .glow-button:hover::before {
+      left: 100%;
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 50px rgba(250, 204, 21, 1);
+      transform: scale(1.08);
+    }
+    .products-modal {
+      max-height: 90vh;
+      overflow-y: auto;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(240, 253, 244, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(30px);
+    }
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+    }
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, transform 0.3s;
+      animation: neonPulse 2s infinite;
+    }
+    .back-arrow:hover {
+      background: linear-gradient(45deg, #facc15, #fef08a);
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(250, 204, 21, 0.9);
+    }
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(250, 204, 21, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.9); }
+    }
+    .instagram-banner {
+      background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .instagram-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    .instagram-banner:hover::before {
+      left: 100%;
+    }
+    .section-animate {
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s, transform 1s;
+    }
+    .section-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      perspectiveowl: 1000px;
+    }
+    .slider::-webkit-scrollbar {
+      display: none;
+    }
+    .slider > div {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+    .slider > div:hover {
+      transform: translateZ(50px) scale(1.05);
+    }
+    .particle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: rgba(250, 204, 21, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: particleFloat 5s ease-in-out infinite;
+    }
+    @keyframes particleFloat {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+      50% { transform: translateY(-20px) scale(1.5); opacity: 0.4; }
+    }
+    .discount-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(45deg, #dc2626, #f87171);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(220, 38, 38, 0.7);
+      animation: pulseBadge 2s infinite;
+    }
+    @keyframes pulseBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .countdown-timer {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: #dc2626;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .filter-panel {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+    }
+    .filter-panel input, .filter-panel select {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+      transition: border 0.3s;
+    }
+    .filter-panel input:focus, .filter-panel select:focus {
+      border-color: #10b981;
+      outline: none;
+    }
+    .range-slider {
+      position: relative;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      margin: 20px 0;
+    }
+    .range-slider input[type="range"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .range-slider .range-fill {
+      position: absolute;
+      height: 6px;
+      background: linear-gradient(45deg, #10b981, #34d399);
+      border-radius: 3px;
+    }
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #dc2626;
+      color: white;
+      border-radius: 50%;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .cart-modal {
+      animation: slideIn 0.7s ease-out;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-left: 10px;
+    }
+    .chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #10b981, #34d399);
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.3s;
+    }
+    .chat-icon:hover {
+      transform: scale(1.2);
+    }
+    .chat-modal {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      z-index: 100;
+      animation: slideIn 0.5s ease-out;
+      display: none;
+    }
+    .chat-modal.active {
+      display: block;
+    }
+    .chat-message {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+    .chat-message.user {
+      background: linear-gradient(45deg, #10b981, #34d399);
+      color: white;
+      margin-right: 10px;
+      align-self: flex-end;
+    }
+    .chat-message.support {
+      background: #e5e7eb;
+      color: #1f2937;
+      margin-left: 10px;
+      align-self: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay muted loop>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-flowers-4189-large.mp4" type="video/mp4">
+  </video>
+  <div class="bg-particles"></div>
+  <div id="particles"></div>
+
+  <!-- Header -->
+  <header class="header text-white p-8 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="logo w-28 h-28 bg-white rounded-full flex items-center justify-center text-green-900 font-bold text-4xl">دیان</div>
+        <h1 class="text-6xl font-bold mr-6" style="font-family: 'Playfair Display', serif;">گل‌فروشی دیان</h1>
+      </div>
+      <nav class="flex space-x-14 items-center">
+        <a href="#home" class="nav-link text-2xl hover:text-yellow-100">خانه</a>
+        <a href="#products" class="nav-link text-2xl hover:text-yellow-100">محصولات</a>
+        <a href="#discounts" class="nav-link text-2xl hover:text-yellow-100">تخفیفات</a>
+        <a href="#plant-doctor" class="nav-link text-2xl hover:text-yellow-100">دکتر گل</a>
+        <a href="#appointment" class="nav-link text-2xl hover:text-yellow-100">رزرو وقت</a>
+        <a href="#contact" class="nav-link text-2xl hover:text-yellow-100">تماس</a>
+        <div class="cart-icon" onclick="showCart()">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Welcome Section -->
+  <section id="home" class="py-56 text-center bg-gradient-welcome parallax relative section-animate">
+    <div class="container mx-auto relative z-10">
+      <h2 class="text-9xl font-bold text-white mb-10 drop-shadow-2xl" style="font-family: 'Playfair Display', serif;">دیان، رویای سبز!</h2>
+      <p class="text-4xl text-yellow-100 mb-14">جهانی از گل‌ها و گیاهان برای خانه و قلب شما</p>
+      <a href="#products" class="glow-button text-green-900 px-14 py-6 rounded-full font-semibold text-2xl">شروع خرید</a>
+    </div>
+  </section>
+
+  <!-- Instagram Banner -->
+  <section class="py-16 instagram-banner text-white text-center section-animate">
+    <div class="container mx-auto">
+      <h3 class="text-5xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">دیان را در اینستاگرام دنبال کنید!</h3>
+      <p class="text-2xl mb-10">با ما همراه باشید برای جدیدترین محصولات و نکات مراقبت از گیاهان</p>
+      <div class="slider p-6">
+        <div class="mx-4"><img src="https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop" alt="پست اینستا" class="w-72 h-72 object-cover rounded-2xl" loading="lazy"></div>
+        <div class="mx-4"><img src="https://images.unsplash.com/photo-1598032895397-b947244972c2?q=80&w=2070&auto=format&fit=crop" alt="پست اینستا" class="w-72 h-72 object-cover rounded-2xl" loading="lazy"></div>
+        <div class="mx-4"><img src="https://images.unsplash.com/photo-1603046891887-1533e8e0b49d?q=80&w=2070&auto=format&fit=crop" alt="پست اینستا" class="w-72 h-72 object-cover rounded-2xl" loading="lazy"></div>
+      </div>
+      <a href="https://instagram.com/dianflowers" target="_blank" class="glow-button text-green-900 px-14 py-5 rounded-full font-semibold mt-8">فالو کنید</a>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section id="featured" class="py-32 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">محصولات منتخب</h2>
+      <div class="slider p-6">
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6">
+          <img src="https://images.unsplash.com/photo-1611095561950-1a89b8a33e97?q=80&w=2070&auto=format&fit=crop" alt="گلدان سفالی" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">گلدان سفالی لوکس</p>
+          <button onclick="addToCart('گلدان سفالی لوکس', 150000, 'https://images.unsplash.com/photo-1611095561950-1a89b8a33e97?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">افزودن به سبد خرید</button>
+        </div>
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6">
+          <img src="https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop" alt="پوتوس طلایی" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">پوتوس طلایی</p>
+          <button onclick="addToCart('پوتوس طلایی', 80000, 'https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">افزودن به سبد خرید</button>
+        </div>
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6">
+          <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2070&auto=format&fit=crop" alt="رز هلندی" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">رز هلندی</p>
+          <button onclick="addToCart('رز هلندی', 50000, 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">افزودن به سبد خرید</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Discounts Section -->
+  <section id="discounts" class="py-32 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">تخفیفات ویژه</h2>
+      <div class="slider p-6">
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6 relative">
+          <div class="discount-badge">30% تخفیف</div>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" alt="گلدان سرامیکی" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">گلدان سرامیکی مدرن</p>
+          <p class="text-center text-lg text-gray-700 mt-2">فقط تا <span class="countdown-timer" data-end="2025-05-10T23:59:59"></span></p>
+          <button onclick="addToCart('گلدان سرامیکی مدرن', 140000, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">خرید با تخفیف</button>
+        </div>
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6 relative">
+          <div class="discount-badge">20% تخفیف</div>
+          <img src="https://images.unsplash.com/photo-1597086853960-658a496a6d56?q=80&w=2070&auto=format&fit=crop" alt="سانسوریا" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">سانسوریا مخملی</p>
+          <p class="text-center text-lg text-gray-700 mt-2">فقط تا <span class="countdown-timer" data-end="2025-05-08T23:59:59"></span></p>
+          <button onclick="addToCart('سانسوریا مخملی', 80000, 'https://images.unsplash.com/photo-1597086853960-658a496a6d56?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">خرید با تخفیف</button>
+        </div>
+        <div class="product-card p-10 rounded-2xl shadow-lg mx-6 relative">
+          <div class="discount-badge">25% تخفیف</div>
+          <img src="https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop" alt="بذر آفتابگردان" class="w-full h-64 object-cover rounded-xl mb-6" loading="lazy">
+          <p class="text-center text-2xl font-semibold text-green-900">بذر آفتابگردان</p>
+          <p class="text-center text-lg text-gray-700 mt-2">فقط تا <span class="countdown-timer" data-end="2025-05-12T23:59:59"></span></p>
+          <button onclick="addToCart('بذر آفتابگردان', 15000, 'https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop')" class="glow-button text-green-900 px-8 py-4 rounded-full font-semibold mt-6 w-full">خرید با تخفیف</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="py-32 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">همه محصولات</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showCategory('pots')">
+          <img src="https://images.unsplash.com/photo-1611095561950-1a89b8a33e97?q=80&w=2070&auto=format&fit=crop" alt="گلدان‌ها" class="w-full h-72 object-cover" loading="lazy">
+          <div class="p-12">
+            <h3 class="text-4xl font-bold text-green-900">گلدان‌ها</h3>
+            <p class="text-gray-700 text-lg">زیبایی طبیعت در گلدان‌های لوکس</p>
+          </div>
+        </div>
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showCategory('indoor')">
+          <img src="https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop" alt="گل‌های آپارتمانی" class="w-full h-72 object-cover" loading="lazy">
+          <div class="p-12">
+            <h3 class="text-4xl font-bold text-green-900">گل‌های آپارتمانی</h3>
+            <p class="text-gray-700 text-lg">طراوت سبز برای خانه شما</p>
+          </div>
+        </div>
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showCategory('outdoor')">
+          <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2070&auto=format&fit=crop" alt="گل‌های فضای سبز" class="w-full h-72 object-cover" loading="lazy">
+          <div class="p-12">
+            <h3 class="text-4xl font-bold text-green-900">گل‌های فضای سبز</h3>
+            <p class="text-gray-700 text-lg">باغچه‌ای پر از رنگ و زندگی</p>
+          </div>
+        </div>
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showCategory('seeds')">
+          <img src="https://images.unsplash.com/photo-1589994187840-8224d47ae9e6?q=80&w=2070&auto=format&fit=crop" alt="بذرها" class="w-full h-72 object-cover" loading="lazy">
+          <div class="p-12">
+            <h3 class="text-4xl font-bold text-green-900">بذرها</h3>
+            <p class="text-gray-700 text-lg">کاشت آینده‌ای سبز با بذرهای باکیفیت</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plant Doctor Section -->
+  <section id="plant-doctor" class="py-32 bg-green-50 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">دکتر گل دیان</h2>
+      <p class="text-2xl text-center mb-14 text-gray-700">با مراقبت حرفه‌ای، گیاهان‌تان همیشه سرزنده و سالم خواهند بود!</p>
+      <div class="slider p-6">
+        <div class="p-10 bg-white rounded-3xl shadow-xl mx-6">
+          <img src="https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop" alt="قبل و بعد" class="w-full h-56 object-cover rounded-xl mb-6" loading="lazy">
+          <h3 class="text-3xl font-bold mb-4 text-green-900">مشاوره تخصصی</h3>
+          <p class="text-gray-700">بهترین روش‌های نگهداری گیاهان را از ما بیاموزید.</p>
+        </div>
+        <div class="p-10 bg-white rounded-3xl shadow-xl mx-6">
+          <img src="https://images.unsplash.com/photo-1597086853960-658a496a6d56?q=80&w=2070&auto=format&fit=crop" alt="قبل و بعد" class="w-full h-56 object-cover rounded-xl mb-6" loading="lazy">
+          <h3 class="text-3xl font-bold mb-4 text-green-900">تشخیص و درمان</h3>
+          <p class="text-gray-700">مشکلات گیاهان را با راه‌حل‌های علمی برطرف کنید.</p>
+        </div>
+        <div class="p-10 bg-white rounded-3xl shadow-xl mx-6">
+          <img src="https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop" alt="قبل و بعد" class="w-full h-56 object-cover rounded-xl mb-6" loading="lazy">
+          <h3 class="text-3xl font-bold mb-4 text-green-900">بازدید حضوری</h3>
+          <p class="text-gray-700">متخصصان ما برای بررسی گیاهان به شما سر می‌زنند.</p>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href="#appointment" class="glow-button text-green-900 px-14 py-5 rounded-full font-semibold text-xl">رزرو وقت مشاوره</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment Section -->
+  <section id="appointment" class="py-32 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">رزرو وقت ویزیت</h2>
+      <p class="text-2xl text-center mb-14 text-gray-700">برای مشاوره حضوری یا بازدید، همین حالا وقت خود را رزرو کنید.</p>
+      <div class="max-w-lg mx-auto bg-white p-12 rounded-3xl shadow-xl">
+        <form>
+          <div class="mb-10">
+            <label class="block text-xl font-semibold text-green-900 mb-3">نام و نام خانوادگی</label>
+            <input type="text" class="w-full p-5 rounded-xl border border-gray-300 focus:outline-none focus:border-green-500 transition-all" required>
+          </div>
+          <div class="mb-10">
+            <label class="block text-xl font-semibold text-green-900 mb-3">شماره تماس</label>
+            <input type="tel" class="w-full p-5 rounded-xl border border-gray-300 focus:outline-none focus:border-green-500 transition-all" required>
+          </div>
+          <div class="mb-10">
+            <label class="block text-xl font-semibold text-green-900 mb-3">تاریخ و زمان</label>
+            <input type="datetime-local" class="w-full p-5 rounded-xl border border-gray-300 focus:outline-none focus:border-green-500 transition-all" required>
+          </div>
+          <button type="submit" class="glow-button text-green-900 px-10 py-5 rounded-full font-semibold w-full">ارسال درخواست</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-32 bg-green-50 section-animate">
+    <div class="container mx-auto">
+      <h2 class="text-7xl font-bold text-center mb-24 text-green-900" style="font-family: 'Playfair Display', serif;">تماس با دیان</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
+        <div class="p-10">
+          <h3 class="text-4xl font-bold mb-10 text-green-900">راه‌های ارتباطی</h3>
+          <div class="flex items-center mb-8">
+            <svg class="w-10 h-10 text-green-600 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+            <p class="text-xl text-gray-700">آدرس: تهران، خیابان بهار، پلاک ۱۲۳</p>
+          </div>
+          <div class="flex items-center mb-8">
+            <svg class="w-10 h-10 text-green-600 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            <p class="text-xl text-gray-700">تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</p>
+          </div>
+          <div class="flex items-center mb-8">
+            <svg class="w-10 h-10 text-green-600 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <p class="text-xl text-gray-700">ایمیل: info@dianflowers.ir</p>
+          </div>
+          <div class="flex items-center">
+            <svg class="w-10 h-10 text-green-600 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path></svg>
+            <p class="text-xl text-gray-700">اینستاگرام: <a href="https://instagram.com/dianflowers" target="_blank" class="text-green-600 hover:underline">@dianflowers</a></p>
+          </div>
+        </div>
+        <div class="p-10">
+          <h3 class="text-4xl font-bold mb-10 text-green-900">مکان ما</h3>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509825!2d144.9537363153167!3d-37.81627997975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d9d9b0b0b0b0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1635781234567!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="header text-white p-16 text-center section-animate">
+    <p class="text-2xl">© 2025 گل‌فروشی دیان. تمامی حقوق محفوظ است.</p>
+  </footer>
+
+  <!-- Products Modal -->
+  <div id="productsModal" class="fixed inset-0 bg-black bg-opacity-95 hidden flex items-center justify-center z-50">
+    <div class="products-modal p-16 rounded-3xl max-w-6xl w-full shadow-2xl relative">
+      <button onclick="closeProductsModal()" class="back-arrow">
+        <svg class="w-8 h-8 text-green-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <h3 id="productsModalTitle" class="text-5xl font-bold mb-16 text-green-900" style="font-family: 'Playfair Display', serif;"></h3>
+      <div class="filter-panel">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div>
+            <label class="block text-lg font-semibold text-green-900 mb-2">جستجو</label>
+            <input type="text" id="searchInput" class="w-full" placeholder="نام محصول را وارد کنید..." oninput="applyFilters()">
+          </div>
+          <div>
+            <label class="block text-lg font-semibold text-green-900 mb-2">دسته‌بندی</label>
+            <select id="categoryFilter" onchange="applyFilters()">
+              <option value="all">همه</option>
+              <option value="pots">گلدان‌ها</option>
+              <option value="indoor">گل‌های آپارتمانی</option>
+              <option value="outdoor">گل‌های فضای سبز</option>
+              <option value="seeds">بذرها</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-lg font-semibold text-green-900 mb-2">نوع گیاه</label>
+            <select id="plantTypeFilter" onchange="applyFilters()">
+              <option value="all">همه</option>
+              <option value="low-light">نور کم</option>
+              <option value="low-water">آبیاری کم</option>
+              <option value="flowering">گل‌دار</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-lg font-semibold text-green-900 mb-2">مرتب‌سازی</label>
+            <select id="sortFilter" onchange="applyFilters()">
+              <option value="default">پیش‌فرض</option>
+              <option value="price-asc">قیمت: کم به زیاد</option>
+              <option value="price-desc">قیمت: زیاد به کم</option>
+              <option value="popularity">محبوبیت</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-6">
+          <label class="block text-lg font-semibold text-green-900 mb-2">محدوده قیمت (تومان)</label>
+          <div class="range-slider">
+            <div class="range-fill" style="width: 100%; left: 0;"></div>
+            <input type="range" min="0" max="1000000" value="0" id="minPrice" oninput="updatePriceRange()">
+            <input type="range" min="0" max="1000000" value="1000000" id="maxPrice" oninput="updatePriceRange()">
+          </div>
+          <div class="flex justify-between text-gray-700">
+            <span id="minPriceValue">0</span>
+            <span id="maxPriceValue">1,000,000</span>
+          </div>
+        </div>
+        <div class="mt-4 flex items-center">
+          <input type="checkbox" id="discountFilter" onchange="applyFilters()" class="mr-2">
+          <label class="text-lg font-semibold text-green-900">فقط تخفیف‌دار</label>
+        </div>
+        <button onclick="resetFilters()" class="glow-button text-green-900 px-8 py-3 rounded-full font-semibold mt-6">ریست فیلتر</button>
+      </div>
+      <div id="productsModalContent" class="grid grid-cols-1 md:grid-cols-3 gap-12"></div>
+    </div>
+  </div>
+
+  <!-- Seeds Subcategories Modal -->
+  <div id="seedsSubcategoriesModal" class="fixed inset-0 bg-black bg-opacity-95 hidden flex items-center justify-center z-50">
+    <div class="products-modal p-16 rounded-3xl max-w-6xl w-full shadow-2xl relative">
+      <button onclick="closeSeedsModal()" class="back-arrow">
+        <svg class="w-8 h-8 text-green-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <h3 class="text-5xl font-bold mb-16 text-green-900" style="font-family: 'Playfair Display', serif;">بذرها</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showSubCategory('flower-seeds')">
+          <img src="https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop" alt="بذر گل‌ها" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-10">
+            <h3 class="text-3xl font-bold text-green-900">بذر گل‌ها</h3>
+            <p class="text-gray-700">بذر گل‌های زینتی و رنگارنگ</p>
+          </div>
+        </div>
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showSubCategory('vegetable-seeds')">
+          <img src="https://images.unsplash.com/photo-1598032895397-b947244972c2?q=80&w=2070&auto=format&fit=crop" alt="بذر سبزی‌ها" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-10">
+            <h3 class="text-3xl font-bold text-green-900">بذر سبزی‌ها</h3>
+            <p class="text-gray-700">بذر سبزیجات تازه و ارگانیک</p>
+          </div>
+        </div>
+        <div class="category-card rounded-3xl overflow-hidden cursor-pointer" onclick="showSubCategory('edible-seeds')">
+          <img src="https://images.unsplash.com/photo-1603046891887-1533e8e0b49d?q=80&w=2070&auto=format&fit=crop" alt="بذر خوراکی‌ها" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-10">
+            <h3 class="text-3xl font-bold text-green-900">بذر خوراکی‌ها</h3>
+            <p class="text-gray-700">بذر میوه‌ها و گیاهان خوراکی</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Details Modal -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-95 hidden flex items-center justify-center z-50">
+    <div class="products-modal p-16 rounded-3xl max-w-lg w-full shadow-2xl relative">
+      <button onclick="closeModal()" class="back-arrow">
+        <svg class="w-8 h-8 text-green-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <h3 id="modalTitle" class="text-4xl font-bold mb-10 text-green-900" style="font-family: 'Playfair Display', serif;"></h3>
+      <img id="modalImage" src="" alt="" class="w-full h-96 object-cover rounded-xl mb-10" loading="lazy">
+      <p id="modalDescription" class="mb-12 text-gray-700 text-xl"></p>
+      <button id="addToCartButton" class="glow-button text-green-900 px-10 py-5 rounded-full font-semibold w-full">افزودن به سبد خرید</button>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-95 hidden flex items-center justify-center z-50">
+    <div class="cart-modal p-16 rounded-3xl max-w-lg w-full shadow-2xl relative">
+      <button onclick="closeCart()" class="back-arrow">
+        <svg class="w-8 h-8 text-green-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <h3 class="text-4xl font-bold mb-10 text-green-900" style="font-family: 'Playfair Display', serif;">سبد خرید</h3>
+      <div id="cartItems" class="mb-10"></div>
+      <p class="text-xl font-semibold text-green-900 mb-6">جمع کل: <span id="cartTotal">0</span> تومان</p>
+      <button onclick="alert('اتصال به درگاه پرداخت...')" class="glow-button text-green-900 px-10 py-5 rounded-full font-semibold w-full">پرداخت</button>
+    </div>
+  </div>
+
+  <!-- Chat Modal -->
+  <div class="chat-icon" onclick="toggleChat()">
+    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+  </div>
+  <div id="chatModal" class="chat-modal">
+    <h3 class="text-2xl font-bold text-green-900 mb-4">پشتیبانی دیان</h3>
+    <div id="chatMessages" class="h-64 overflow-y-auto mb-4 p-4 bg-gray-100 rounded-xl flex flex-col"></div>
+    <input type="text" id="chatInput" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-green-500 mb-4" placeholder="پیام خود را بنویسید...">
+    <button onclick="sendMessage()" class="glow-button text-green-900 px-6 py-3 rounded-full font-semibold w-full">ارسال</button>
+  </div>
+
+  <script>
+    const products = {
+      pots: [
+        { name: 'گلدان سفالی لوکس', description: 'گلدان سفالی دست‌ساز با طراحی کلاسیک و شیک، مناسب برای گیاهان آپارتمانی.', image: 'https://images.unsplash.com/photo-1611095561950-1a89b8a33e97?q=80&w=2070&auto=format&fit=crop', price: 150000, discount: 0, popularity: 8, plantType: 'low-light' },
+        { name: 'گلدان سرامیکی مدرن', description: 'گلدان سرامیکی با لعاب براق و طراحی مینیمال، ایده‌آل برای دکوراسیون مدرن.', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop', price: 200000, discount: 30, popularity: 9, plantType: 'low-water' },
+        { name: 'گلدان مرمری', description: 'گلدان با طرح مرمر، ترکیبی از زیبایی و استحکام برای دکوراسیون لوکس.', image: 'https://images.unsplash.com/photo-1598982395476-a3b499f7ff32?q=80&w=2070&auto=format&fit=crop', price: 300000, discount: 0, popularity: 7, plantType: 'low-light' },
+        { name: 'گلدان چوبی طبیعی', description: 'گلدان چوبی با بافت طبیعی، مناسب برای فضاهای گرم و صمیمی.', image: 'https://images.unsplash.com/photo-1611095561950-1a89b8a33e97?q=80&w=2070&auto=format&fit=crop', price: 120000, discount: 0, popularity: 6, plantType: 'low-water' },
+      ],
+      indoor: [
+        { name: 'پوتوس طلایی', description: 'گیاه پوتوس با برگ‌های سبز و طلایی، مقاوم و مناسب برای نور کم.', image: 'https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop', price: 80000, discount: 0, popularity: 9, plantType: 'low-light' },
+        { name: 'سانسوریا مخملی', description: 'سانسوریا با برگ‌های بلند و مخملی، تصفیه‌کننده هوای خانه.', image: 'https://images.unsplash.com/photo-1597086853960-658a496a6d56?q=80&w=2070&auto=format&fit=crop', price: 100000, discount: 20, popularity: 8, plantType: 'low-water' },
+        { name: 'فیکوس الاستیکا', description: 'فیکوس با برگ‌های براق و تیره، مناسب برای دکوراسیون داخلی شیک.', image: 'https://images.unsplash.com/photo-1610986004638-c15a58e0ebec?q=80&w=2070&auto=format&fit=crop', price: 150000, discount: 0, popularity: 7, plantType: 'low-light' },
+        { name: 'کاج مطبق', description: 'گیاه کاج مطبق با ظاهر مینیاتوری، ایده‌آل برای فضاهای کوچک.', image: 'https://images.unsplash.com/photo-1597086853960-658a496a6d56?q=80&w=2070&auto=format&fit=crop', price: 200000, discount: 0, popularity: 6, plantType: 'low-water' },
+      ],
+      outdoor: [
+        { name: 'رز هلندی', description: 'گل رز هلندی در رنگ‌های متنوع، مناسب برای باغچه‌های لوکس.', image: 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2070&auto=format&fit=crop', price: 50000, discount: 0, popularity: 9, plantType: 'flowering' },
+        { name: 'یاس رازقی', description: 'یاس رازقی معطر با گل‌های سفید، ایده‌آل برای فضای باز.', image: 'https://images.unsplash.com/photo-1582793988953-209c22a3b6e9?q=80&w=2070&auto=format&fit=crop', price: 60000, discount: 0, popularity: 8, plantType: 'flowering' },
+        { name: 'نرگس شیراز', description: 'گل نرگس با عطر دل‌انگیز، مناسب برای باغ و فضای سبز.', image: 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2070&auto=format&fit=crop', price: 45000, discount: 0, popularity: 7, plantType: 'flowering' },
+        { name: 'لاله عباسی', description: 'گل لاله عباسی با رنگ‌های شاد، مناسب برای حاشیه باغچه.', image: 'https://images.unsplash.com/photo-1582793988953-209c22a3b6e9?q=80&w=2070&auto=format&fit=crop', price: 40000, discount: 0, popularity: 6, plantType: 'flowering' },
+      ],
+      'flower-seeds': [
+        { name: 'بذر آفتابگردان', description: 'بذر آفتابگردان برای کاشت گل‌های بزرگ و جذاب.', image: 'https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop', price: 20000, discount: 25, popularity: 8, plantType: 'flowering' },
+        { name: 'بذر لاله', description: 'بذر لاله در رنگ‌های متنوع، مناسب برای باغچه‌های زینتی.', image: 'https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop', price: 25000, discount: 0, popularity: 7, plantType: 'flowering' },
+        { name: 'بذر میخک', description: 'بذر میخک با گل‌های معطر، ایده‌آل برای باغچه.', image: 'https://images.unsplash.com/photo-1617055453186-314ff4ebedee?q=80&w=2070&auto=format&fit=crop', price: 18000, discount: 0, popularity: 6, plantType: 'flowering' },
+      ],
+      'vegetable-seeds': [
+        { name: 'بذر گوجه‌فرنگی', description: 'بذر گوجه‌فرنگی ارگانیک، مناسب برای کاشت خانگی.', image: 'https://images.unsplash.com/photo-1598032895397-b947244972c2?q=80&w=2070&auto=format&fit=crop', price: 15000, discount: 0, popularity: 8, plantType: 'low-water' },
+        { name: 'بذر ریحان', description: 'بذر ریحان معطر، مناسب برای آشپزی و باغچه.', image: 'https://images.unsplash.com/photo-1598032895397-b947244972c2?q=80&w=2070&auto=format&fit=crop', price: 12000, discount: 0, popularity: 7, plantType: 'low-water' },
+        { name: 'بذر کاهو', description: 'بذر کاهو برای کاشت سبزیجات تازه و ترد.', image: 'https://images.unsplash.com/photo-1598032895397-b947244972c2?q=80&w=2070&auto=format&fit=crop', price: 10000, discount: 0, popularity: 6, plantType: 'low-water' },
+      ],
+      'edible-seeds': [
+        { name: 'بذر کدو', description: 'بذر کدو برای کاشت در باغچه‌های خانگی.', image: 'https://images.unsplash.com/photo-1603046891887-1533e8e0b49d?q=80&w=2070&auto=format&fit=crop', price: 20000, discount: 0, popularity: 7, plantType: 'low-water' },
+        { name: 'بذر توت‌فرنگی', description: 'بذر توت‌فرنگی برای کاشت میوه‌های شیرین و جذاب.', image: 'https://images.unsplash.com/photo-1603046891887-1533e8e0b49d?q=80&w=2070&auto=format&fit=crop', price: 30000, discount: 0, popularity: 8, plantType: 'flowering' },
+        { name: 'بذر هندوانه', description: 'بذر هندوانه برای کاشت میوه‌های آبدار و شیرین.', image: 'https://images.unsplash.com/photo-1603046891887-1533e8e0b49d?q=80&w=2070&auto=format&fit=crop', price: 25000, discount: 0, popularity: 6, plantType: 'low-water' },
+      ],
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Initialize cart count
+    updateCartCount();
+
+    // GSAP Animations
+    gsap.utils.toArray('.section-animate').forEach(section => {
+      gsap.fromTo(section, 
+        { opacity: 0, y: 80 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // Countdown Timer
+    function startCountdown() {
+      document.querySelectorAll('.countdown-timer').forEach(timer => {
+        const endDate = new Date(timer.dataset.end).getTime();
+        const updateTimer = () => {
+          const now = new Date().getTime();
+          const distance = endDate - now;
+          if (distance < 0) {
+            timer.textContent = 'منقضی شده';
+            return;
+          }
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          timer.textContent = `${days}روز ${hours}:${minutes}:${seconds}`;
+        };
+        updateTimer();
+        setInterval(updateTimer, 1000);
+      });
+    }
+
+    // Cart Functions
+    function addToCart(name, price, image) {
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, image, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      animateCartAddition();
+    }
+
+    function updateCartCount() {
+      const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById('cartCount').textContent = cartCount;
+    }
+
+    function animateCartAddition() {
+      gsap.to('.cart-icon', {
+        scale: 1.2,
+        duration: 0.2,
+        repeat: 1,
+        yoyo: true,
+        ease: 'power1.inOut'
+      });
+    }
+
+    function showCart() {
+      const cartModal = document.getElementById('cartModal');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const discountedPrice = item.price * (1 - (products[Object.keys(products).find(key => products[key].some(p => p.name === item.name))] || []).find(p => p.name === item.name)?.discount / 100 || 0);
+        total += discountedPrice * item.quantity;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="flex-1">
+              <p class="text-lg font-semibold text-green-900">${item.name}</p>
+              <p class="text-gray-700">${discountedPrice.toLocaleString()} تومان</p>
+            </div>
+            <div class="flex items-center">
+              <button onclick="updateCartItem(${index}, ${item.quantity - 1})" class="px-2">-</button>
+              <span class="mx-2">${item.quantity}</span>
+              <button onclick="updateCartItem(${index}, ${item.quantity + 1})" class="px-2">+</button>
+              <button onclick="removeCartItem(${index})" class="text-red-600 mr-2">حذف</button>
+            </div>
+          </div>
+        `;
+      });
+
+      cartTotal.textContent = total.toLocaleString();
+      cartModal.classList.remove('hidden');
+    }
+
+    function updateCartItem(index, quantity) {
+      if (quantity <= 0) {
+        removeCartItem(index);
+      } else {
+        cart[index].quantity = quantity;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showCart();
+      }
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      showCart();
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').classList.add('hidden');
+    }
+
+    // Chat Functions
+    function toggleChat() {
+      const chatModal = document.getElementById('chatModal');
+      chatModal.classList.toggle('active');
+    }
+
+    function sendMessage() {
+      const chatInput = document.getElementById('chatInput');
+      const chatMessages = document.getElementById('chatMessages');
+      const message = chatInput.value.trim();
+
+      if (message) {
+        chatMessages.innerHTML += `<div class="chat-message user">${message}</div>`;
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Simulate support response
+        setTimeout(() => {
+          const responses = [
+            'سلام! چطور می‌توانم به شما کمک کنم؟',
+            'ممنون از پیام شما! لطفاً جزئیات بیشتری بفرستید.',
+            'در حال بررسی درخواست شما هستیم...',
+          ];
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          chatMessages.innerHTML += `<div class="chat-message support">${randomResponse}</div>`;
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+      }
+    }
+
+    // Filter Functions
+    function updatePriceRange() {
+      const minPrice = document.getElementById('minPrice');
+      const maxPrice = document.getElementById('maxPrice');
+      const minPriceValue = document.getElementById('minPriceValue');
+      const maxPriceValue = document.getElementById('maxPriceValue');
+      const rangeFill = document.querySelector('.range-fill');
+
+      let min = parseInt(minPrice.value);
+      let max = parseInt(maxPrice.value);
+
+      if (min > max) {
+        [min, max] = [max, min];
+        minPrice.value = min;
+        maxPrice.value = max;
+      }
+
+      minPriceValue.textContent = min.toLocaleString();
+      maxPriceValue.textContent = max.toLocaleString();
+
+      const minPercent = (min / 1000000) * 100;
+      const maxPercent = (max / 1000000) * 100;
+      rangeFill.style.left = `${minPercent}%`;
+      rangeFill.style.width = `${maxPercent - minPercent}%`;
+
+      applyFilters();
+    }
+
+    function applyFilters(category = null) {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const categoryFilter = category || document.getElementById('categoryFilter').value;
+      const plantTypeFilter = document.getElementById('plantTypeFilter').value;
+      const sortFilter = document.getElementById('sortFilter').value;
+      const discountFilter = document.getElementById('discountFilter').checked;
+      const minPrice = parseInt(document.getElementById
